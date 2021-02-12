@@ -54,6 +54,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'netology_m2m_relations',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'USER': 'm2m',
+        'PASSWORD': '1'
+    }
+}
+
 if DEBUG:
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
     INTERNAL_IPS = [
@@ -82,16 +93,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'netology_m2m_relations',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'USER': 'm2m',
-        'PASSWORD': '1'
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -141,6 +142,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 try:
-    from .settings_local import *
+    from articles.settings_local import *
 except ImportError:
     pass
+
