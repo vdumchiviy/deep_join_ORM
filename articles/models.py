@@ -8,7 +8,7 @@ class Article(models.Model):
     published_at = models.DateTimeField(verbose_name='Release Date')
     image = models.ImageField(null=True, blank=True,
                               verbose_name='Image',)
-    scopes = models.ManyToManyField('Scope', through='ArticleScope')
+    scopes = models.ManyToManyField('Scope', through='ArticleScope', related_name='articles')
 
     class Meta:
         verbose_name = 'Article'
@@ -20,7 +20,7 @@ class Article(models.Model):
 
 class Scope(models.Model):
     name = models.CharField(max_length=50, verbose_name="Name")
-    articles = models.ManyToManyField(Article, through='ArticleScope')
+    # articles = models.ManyToManyField(Article, through='ArticleScope')
 
     class Meta:
         verbose_name = "Scope"
@@ -33,7 +33,7 @@ class Scope(models.Model):
 class ArticleScope(models.Model):
 
     article = models.ForeignKey(
-        Article, verbose_name="Article", on_delete=models.CASCADE)
+        Article, verbose_name="Article", on_delete=models.CASCADE, related_name='scope_relations')
     scope = models.ForeignKey(
         Scope, verbose_name="Scope", on_delete=models.CASCADE)
     is_favorite = models.BooleanField(verbose_name="Favorite", default=False)
